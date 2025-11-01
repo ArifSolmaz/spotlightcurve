@@ -1,4 +1,5 @@
 from __future__ import annotations
+from astropy import units as u
 import numpy as np
 import lightkurve as lk
 
@@ -33,6 +34,6 @@ def run_bls(lc_flat: "lk.LightCurve", pmin: float = 0.3, pmax: float = 20.0,
     if duration.size == 0:
         duration = np.array([0.45 * pmin])
     bls = lc_flat.to_periodogram(method="bls", period=period, duration=duration, objective="snr")
-    P = float(bls.period_at_max_power)
-    T0 = float(bls.transit_time_at_max_power)
-    return bls, P, T0
+    P  = bls.period_at_max_power.to_value(u.day)
+    T0 = bls.transit_time_at_max_power.to_value(u.day)
+    return bls, float(P), float(T0)
