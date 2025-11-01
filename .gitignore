@@ -35,3 +35,11 @@ node_modules/
 dist/
 build/
 .streamlit/secrets.toml
+.DS_Store
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+.venv/
+.env
