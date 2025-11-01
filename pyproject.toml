@@ -1,45 +1,37 @@
 [build-system]
-requires = ["setuptools>=61", "wheel"]
+requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "spotlightcurve"
-version = "0.1.0"
-description = "A light-curve analysis and starspot modeling toolkit"
+version = "0.0.1"
+description = "Minimal tools to fetch, preprocess, and analyze exoplanet transits (TESS/Kepler) & starspots."
 readme = "README.md"
+authors = [{ name = "Arif Solmaz" }]
 requires-python = ">=3.9"
 license = { text = "MIT" }
-authors = [{ name = "Arif Solmaz" }]
-keywords = ["exoplanet", "light curve", "starspot", "astrophysics", "TESS"]
-classifiers = [
-  "Programming Language :: Python :: 3",
-  "License :: OSI Approved :: MIT License",
-  "Operating System :: OS Independent",
-  "Intended Audience :: Science/Research",
-  "Topic :: Scientific/Engineering :: Astronomy"
-]
+keywords = ["exoplanet","transit","TESS","Kepler","light curve","BLS","starspots"]
 
-dependencies = [
-  "numpy",
-  "scipy",
-  "pandas",
-  "matplotlib",
-  "astropy",
-  "tqdm"
-]
+[project.dependencies]
+numpy = "<2"
+pandas = "*"
+matplotlib = "*"
+astropy = ">=5,<6"
+lightkurve = "==2.4.3"
+astroquery = "*"
+batman-package = "*"
 
-# ✅ Optional dependencies (users can install extras with [jax])
 [project.optional-dependencies]
-jax = [
-  "jax>=0.4.16",
-  "jaxlib>=0.4.16; platform_system != 'Darwin'",
-  "jax-metal>=0.1.1; platform_system == 'Darwin'"
-]
+fit = ["scipy"]
 
-[project.urls]
-Homepage = "https://github.com/ArifSolmaz/arifsolmaz.github.io"
-Issues = "https://github.com/ArifSolmaz/arifsolmaz.github.io/issues"
+[project.scripts]
+spotlightcurve-download = "spotlightcurve.cli:download_main"
+spotlightcurve-bls = "spotlightcurve.cli:bls_main"
 
+# >>> ADD THESE LINES <<<
 [tool.setuptools]
-packages = ["spotlightcurve"]
 include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["spotlightcurve*"]
