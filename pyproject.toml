@@ -6,12 +6,13 @@ build-backend = "setuptools.build_meta"
 name = "spotlightcurve"
 version = "0.0.1"
 description = "Minimal tools to fetch, preprocess, and analyze exoplanet transits (TESS/Kepler) & starspots."
-readme = "README.md"
+readme = { file = "README.md", content-type = "text/markdown" }
 authors = [{ name = "Arif Solmaz" }]
 requires-python = ">=3.9"
 license = { text = "MIT" }
 keywords = ["exoplanet","transit","TESS","Kepler","light curve","BLS","starspots"]
 
+# Keep deps lean and broadly compatible for Colab/Streamlit
 [project.dependencies]
 numpy = "<2"
 pandas = "*"
@@ -28,7 +29,7 @@ fit = ["scipy"]
 spotlightcurve-download = "spotlightcurve.cli:download_main"
 spotlightcurve-bls = "spotlightcurve.cli:bls_main"
 
-# >>> ADD THESE LINES <<<
+# --- Make package discovery explicit for old setuptools ---
 [tool.setuptools]
 include-package-data = true
 
