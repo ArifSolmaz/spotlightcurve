@@ -34,6 +34,13 @@ def run_bls(lc_flat: "lk.LightCurve", pmin: float = 0.3, pmax: float = 20.0,
     if duration.size == 0:
         duration = np.array([0.45 * pmin])
     bls = lc_flat.to_periodogram(method="bls", period=period, duration=duration, objective="snr")
+    
     P  = bls.period_at_max_power.to_value(u.day)
-    T0 = bls.transit_time_at_max_power.to_value(u.day)
+
+    t0 = bls.transit_time_at_max_power
+    try:
+    T0 = float(t0.to_value("btjd"))
+    except Exception:
+    T0 = float(t0.to_value("jd")) - 2457000.0  # fallback to BTJD
+
     return bls, float(P), float(T0)
