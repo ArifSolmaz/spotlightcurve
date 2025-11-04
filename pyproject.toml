@@ -1,3 +1,32 @@
 [build-system]
 requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "spotlightcurve"
+version = "0.0.1"
+description = "Light-curve utilities and transit modeling for active stars"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [{ name = "Arif Solmaz" }]
+license = { text = "MIT" }
+
+# Runtime deps (trim or pin as you like)
+dependencies = [
+  "numpy>=1.23",
+  "astropy>=5.0",
+  "lightkurve>=2.4",
+  "arviz>=0.15",
+  "pymc>=5.10",
+  "astroquery>=0.4.7",
+  "batman-package>=2.4.9"
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+# ← MAKE SURE your code is inside a folder literally named `spotlightcurve/`
+where = ["."]
+include = ["spotlightcurve*"]
+exclude = ["tests*", "docs*", "examples*"]
